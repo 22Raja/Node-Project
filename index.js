@@ -18,16 +18,15 @@ const app = express();
 
 
 
-const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://keerthiraja228:MfmDkBO42DV1zql2@people-club.sol6thw.mongodb.net/yourDatabaseName?retryWrites=true&w=majority";
+//const { MongoClient, ServerApiVersion } = require('mongodb');
+//const uri = "mongodb+srv://keerthiraja228:MfmDkBO42DV1zql2@people-club.sol6thw.mongodb.net/yourDatabaseName?retryWrites=true&w=majority";
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  }
-});
+mongoose.connect("mongodb+srv://keerthiraja228:MfmDkBO42DV1zql2@people-club.sol6thw.mongodb.net/yourDatabaseName?retryWrites=true&w=majority", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+.then(() => console.log("MongoDB connected via Mongoose"))
+.catch(err => console.error("MongoDB connection error:", err));
 
 async function run() {
   try {
