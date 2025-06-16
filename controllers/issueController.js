@@ -7,13 +7,13 @@ exports.listIssues = async (req, res) => {
   const issues = await BookIssue.find().lean()
     .populate('book')
     .populate('member');
-  res.render('issues/index', { issues, moment });
+  res.render('Issues/index', { issues, moment });
 };
 
 exports.showIssueForm = async (req, res) => {
   const books = await Book.find({ copiesAvailable: { $gt: 0 } }).lean();
   const members = await Member.find().lean();
-  res.render('issues/add', { books, members });
+  res.render('Issues/add', { books, members });
 };
 
 exports.issueBook = async (req, res) => {
@@ -60,7 +60,7 @@ exports.returnBook = async (req, res) => {
     book.copiesIssued -= 1;
     await book.save();
 
-    res.redirect('/issues');
+    res.redirect('/Issues');
   } catch (err) {
     res.status(400).send(err.message);
   }
@@ -77,7 +77,7 @@ exports.reissueBook = async (req, res) => {
     issue.dueDate = moment(issue.dueDate).add(extensionDays, 'days').toDate();
     await issue.save();
 
-    res.redirect('/issues');
+    res.redirect('/Issues');
   } catch (err) {
     res.status(400).send(err.message);
   }
