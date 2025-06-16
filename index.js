@@ -6,8 +6,8 @@ const methodOverride = require('method-override');
 const moment = require('moment');
 
 const bookRoutes = require('./routes/books');
-const memberRoutes = require('./routes/Members');
-const issueRoutes = require('./routes/Issues');
+const memberRoutes = require('./routes/members');
+const issueRoutes = require('./routes/issues');
 
 const app = express();
 
