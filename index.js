@@ -42,7 +42,6 @@ async function run() {
 }
 run().catch(console.dir);
 
-
 // Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
