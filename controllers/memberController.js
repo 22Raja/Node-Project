@@ -4,11 +4,11 @@ const moment = require('moment');
 exports.listMembers = async (req, res) => {
   const members = await Member.find().lean();
 
-  res.render('members/index', { members, moment });
+  res.render('Members/index', { members, moment });
 };
 
 exports.showAddMemberForm = (req, res) => {
-  res.render('members/add');
+  res.render('Members/add');
 };
 
 exports.addMember = async (req, res) => {
@@ -22,7 +22,7 @@ exports.addMember = async (req, res) => {
       membershipStart: new Date(),
     });
     await member.save();
-    res.redirect('/members');
+    res.redirect('/Members');
   } catch (err) {
     res.status(400).send(err.message);
   }
@@ -31,7 +31,7 @@ exports.addMember = async (req, res) => {
 exports.showEditMemberForm = async (req, res) => {
   const member = await Member.findById(req.params.id);
   if (!member) return res.status(404).send('Member not found');
-  res.render('members/edit', { member });
+  res.render('Members/edit', { member });
 };
 
 // Members can update only their personal details (name, phone)
@@ -44,7 +44,7 @@ exports.updateMember = async (req, res) => {
     member.name = name;
     member.phone = phone;
     await member.save();
-    res.redirect('/members');
+    res.redirect('/Members');
   } catch (err) {
     res.status(400).send(err.message);
   }
@@ -60,7 +60,7 @@ exports.extendMembership = async (req, res) => {
     const newExpiry = moment(member.membershipExpiry).add(extensionMonths, 'months').toDate();
     member.membershipExpiry = newExpiry;
     await member.save();
-    res.redirect('/members');
+    res.redirect('/Members');
   } catch (err) {
     res.status(400).send(err.message);
   }
@@ -69,5 +69,5 @@ exports.extendMembership = async (req, res) => {
 // Delete member if membership expired
 exports.deleteMember = async (req, res) => {
   await Member.findByIdAndDelete(req.params.id);
-  res.redirect('/members');
+  res.redirect('/Members');
 };
